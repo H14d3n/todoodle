@@ -1,14 +1,14 @@
 <template>
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">Todoodle</h1>
+    <div class="container-fluid mt-5 ml-5">
+      <h1 class="text-center ms-2 mb-5 mx-2 border border-dark rounded">todoodle ©</h1>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-5">
             <Sidebar />
         </div>
-        <div class="col-md-20">
-          <TodoList />
-        </div>
       </div>
+    </div>
+    <div class="col-md-15 ms-5 align-middle d-inline-flex p-2">
+          <TodoList />
     </div>
   </template>
   
@@ -24,9 +24,18 @@
   };
   </script>
   
+  
   <style scoped>
-  .container {
-    max-width: 1200px;
+
+   h1 {
+    font-size: 30px;
+    background-color: rgb(77, 80, 119);
+    color: white;
+   } 
+
+  .container-fluid {
+    margin-left: 50px;
+    margin-right: 50px;
   }
   </style>
   

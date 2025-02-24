@@ -1,10 +1,9 @@
 <template>
-    <div class="todo-item">
-      <div class="d-flex justify-content-between">
-        <span>{{ todo.text }}</span>
-        <button class="btn btn-danger btn-sm" @click="deleteTodo(todo.id)">
-          Delete
-        </button>
+    <div class="d-flex justify-content-between align-items-center w-100 rounded-bottom" >
+      <div class="todo-title">
+        <h5>{{ todo.title }}</h5>
+        <hr>
+        <p>{{ todo.description }}</p>
       </div>
     </div>
   </template>
@@ -15,21 +14,13 @@
       todo: Object
     },
     methods: {
-      deleteTodo(id) {
-        this.$emit("delete-todo", id);
-      }
     }
   };
   </script>
   
   <style scoped>
-
-  .todo-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+  .todo-title {
+    flex-grow: 1; 
   }
   </style>
   
