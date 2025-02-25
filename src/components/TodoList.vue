@@ -1,11 +1,12 @@
 <template>
-    <div class="container">
+    <div v-if="todos.length" class="container-xxl">
       <row>
         <div v-for="todo in todos" :key="todo.id" class="col-mb-4 mb-3">
           <TodoItem :todo="todo" class="todo-item" />
         </div>
       </row>
     </div>
+    <p v-else class="text-muted">Keine Todos gefunden! Bitte erstelle ein Neues!</p>
   </template>
   
   <script>
@@ -38,6 +39,15 @@
     padding: 15px;
     border-radius: 5px;
     width: 100%; 
+  }
+
+  .container-xxl {
+    display: grid;
+  }
+
+  .text-muted {
+    margin-top: 100px;
+    font-size: large;
   }
   </style>
   

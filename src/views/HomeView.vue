@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid mt-0">
       <h1 class="text-center my-0 mx-0 border border-dark rounded">todoodle ©</h1>
-      <div class="bg-light mt-3 mx-1 rounded">
+      <div class="bg-light mt-3 mx-1 rounded-end-5">
         <div class="col-md-5">
             <Sidebar />
         </div>
@@ -10,6 +10,7 @@
     <div class="col-md-9">
           <TodoList />
     </div>
+
   </template>
   
   <script>
