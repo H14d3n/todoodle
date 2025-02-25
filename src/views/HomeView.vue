@@ -1,25 +1,27 @@
 <template>
-    <div class="container-fluid mt-5 ml-5">
-      <h1 class="text-center ms-2 mb-5 mx-2 border border-dark rounded">todoodle ©</h1>
-      <div class="row">
+    <div class="container-fluid mt-0">
+      <h1 class="text-center my-0 mx-0 border border-dark rounded">todoodle ©</h1>
+      <div class="bg-light mt-3 mx-1 rounded">
         <div class="col-md-5">
             <Sidebar />
         </div>
       </div>
     </div>
-    <div class="col-md-15 ms-5 align-middle d-inline-flex p-2">
+    <div class="col-md-9">
           <TodoList />
     </div>
   </template>
   
   <script>
   import TodoList from "@/components/TodoList.vue"; 
-  import Sidebar from "@/components/Sidebar.vue"; // Waiting to be implemented
+  import Sidebar from "@/components/Sidebar.vue";
   import FilterBar from "@/components/FilterBar.vue"; // Waiting to be implemented
+
   
   export default {
     components: {
       TodoList,
+      Sidebar
     }
   };
   </script>
@@ -34,7 +36,7 @@
    } 
 
   .container-fluid {
-    margin-left: 50px;
+    margin-left: 0px;
     margin-right: 50px;
   }
   </style>
