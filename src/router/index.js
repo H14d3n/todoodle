@@ -3,16 +3,8 @@ import HomeView from '@/views/HomeView.vue';
 import EditView from '@/views/EditView.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/edit/:id',
-    name: 'edit',
-    component: EditView
-  }
+  { path: '/', component: HomeView },
+  { path: '/edit/:id', name: 'edit', component: EditView }
 ];
 
 const router = createRouter({
