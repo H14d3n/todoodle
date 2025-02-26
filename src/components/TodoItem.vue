@@ -4,8 +4,10 @@
       <h5>{{ todo.title }}</h5>
       <hr>
       <p>{{ todo.description }}</p>
-      <button @click="$emit('edit', todo)" class="btn btn-primary">🖉</button>
-    </div>
+      <button @click="$emit('edit', todo)" class="btn btn-primary btn-sm">
+      ✏️
+      </button>
+    </div> 
   </div>
 </template>
 

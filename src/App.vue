@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="p-0 my-4">
+  <div id="app" class="p-0 my-0">
     <router-view />
   </div>
 </template>
@@ -14,5 +14,7 @@ export default {
 
 body {
   font-family: Arial, sans-serif;
+  margin: 2rem
 }
+
 </style>

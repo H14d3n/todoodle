@@ -2,7 +2,7 @@
   <div v-if="todos.length" class="container-xxl mt-6">
     <div class="row">
       <div v-for="todo in todos" :key="todo.id" class="col-mb-4 mb-3">
-        <TodoItem :todo="todo" @edit="editTask" class="todo-item" />
+        <TodoItem :todo="todo" class="todo-item" @edit="editTask(todo)" />
       </div>
     </div>
   </div>
@@ -16,14 +16,10 @@ export default {
   components: {
     TodoItem
   },
-  data() {
-    return {
-      todos: [
-        { id: 1, title: "Erstellen von Todoodle", description: "Vuejs & Bootstrap" },
-        { id: 2, title: "Aufgaben in JSON Format abspeichern", description: "Titel ist selbsterklärend 😂" },
-        { id: 3, title: "Andere Funktionalitäten", description: "Implementieren von Filter, Kategorien und vieles mehr." }
-      ]
-    };
+  computed: {
+    todos() {
+      return JSON.parse(localStorage.getItem('todos')) || [];
+    }
   },
   methods: {
     editTask(todo) {
@@ -43,7 +39,7 @@ export default {
 }
 
 .container-xxl {
-  display: grid;
+  display: flex;
 }
 
 .text-muted {
