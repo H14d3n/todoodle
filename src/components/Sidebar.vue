@@ -13,6 +13,7 @@
 
 <style scoped>
   .image-container img {
+    margin-left: 120%;
     width: 60px;
     scale: unset;
     height: auto;

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="todos.length" class="container-xxl">
+    <div v-if="todos.length" class="container-xxl mt-6">
       <row>
         <div v-for="todo in todos" :key="todo.id" class="col-mb-4 mb-3">
           <TodoItem :todo="todo" class="todo-item" />
@@ -36,8 +36,9 @@
   <style scoped>
   .todo-item {
     background-color: #98b0da;
+    border-color: #485971;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%; 
   }
 
@@ -48,6 +49,10 @@
   .text-muted {
     margin-top: 100px;
     font-size: large;
+  }
+
+  .mt-6 {
+    margin-top: 4.5rem;
   }
   </style>
   
