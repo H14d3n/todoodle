@@ -3,12 +3,13 @@
     <h1 class="text-center my-0 mx-0 border border-dark rounded">todoodle ©</h1>
     <div class="row">
       <div class="col-md-3 mt-3 mx-1 p-0 rounded">
-        <Sidebar @createTask="createTask" @openEdit="editTask" />
+        <Sidebar @createTask="createTask" @openEdit="editTask" @openCategoryView="openCategoryView" />
       </div>
       <div class="col-md-12 mt-1">
-        <EditView v-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
-        <CreateView v-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
-        <TodoList v-if="!isEditing && !isCreating" @editTask="editTask" :todos="todos" />
+        <TodoCategory v-if="isCategoryView" @close="closeCategoryView" />
+        <EditView v-else-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
+        <CreateView v-else-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
+        <TodoList v-else @editTask="editTask" :todos="todos" />
       </div>
     </div>
   </div>
@@ -19,18 +20,21 @@ import TodoList from "@/components/TodoList.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import EditView from "@/views/EditView.vue";
 import CreateView from "@/views/CreateView.vue";
+import TodoCategory from "@/components/TodoCategory.vue";
 
 export default {
   components: {
     TodoList,
     Sidebar,
     EditView,
-    CreateView
+    CreateView,
+    TodoCategory
   },
   data() {
     return {
       isEditing: false,
       isCreating: false,
+      isCategoryView: false,
       selectedTodo: null,
       todos: []
     };
@@ -42,9 +46,18 @@ export default {
     editTask(todo) {
       this.selectedTodo = { ...todo };
       this.isEditing = true;
+      this.isCategoryView = false;
+      this.isCreating = false;
     },
     createTask() {
       this.isCreating = true;
+      this.isCategoryView = false;
+      this.isEditing = false;
+    },
+    openCategoryView() {
+      this.isCategoryView = true;
+      this.isEditing = false;
+      this.isCreating = false;
     },
     closeCreate() {
       this.isCreating = false;
@@ -52,6 +65,10 @@ export default {
     },
     closeEdit() {
       this.isEditing = false;
+      this.loadTodos();
+    },
+    closeCategoryView() {
+      this.isCategoryView = false;
       this.loadTodos();
     },
     updateTodo(updatedTodo) {
@@ -66,7 +83,7 @@ export default {
       this.isCreating = false;
     },
     loadTodos() {
-      const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+      const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       this.todos = savedTodos;
     }
   }
