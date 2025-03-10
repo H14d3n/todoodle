@@ -16,10 +16,8 @@ export default {
   components: {
     TodoItem
   },
-  computed: {
-    todos() {
-      return JSON.parse(localStorage.getItem('todos')) || [];
-    }
+  props: {
+    todos: Array
   },
   methods: {
     editTask(todo) {

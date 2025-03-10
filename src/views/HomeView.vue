@@ -7,11 +7,8 @@
       </div>
       <div class="col-md-12 mt-1">
         <EditView v-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
-        
         <CreateView v-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
-
-
-        <TodoList v-else @editTask="editTask" :todos="todos" />
+        <TodoList v-if="!isEditing && !isCreating" @editTask="editTask" :todos="todos" />
       </div>
     </div>
   </div>
