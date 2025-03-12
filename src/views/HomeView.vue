@@ -5,11 +5,14 @@
       <div class="col-md-3 mt-3 mx-1 p-0 rounded">
         <Sidebar @createTask="createTask" @openEdit="editTask" @openCategoryView="openCategoryView" />
       </div>
+      <div>
+        <FilterBar @search="filterTodos" />
+      </div>
       <div class="col-md-12 mt-1">
         <TodoCategory v-if="isCategoryView" @close="closeCategoryView" />
         <EditView v-else-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
         <CreateView v-else-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
-        <TodoList v-else @editTask="editTask" :todos="todos" />
+        <TodoList v-else @editTask="editTask" :todos="filteredTodos" />
       </div>
     </div>
   </div>
@@ -21,6 +24,7 @@ import Sidebar from "@/components/Sidebar.vue";
 import EditView from "@/views/EditView.vue";
 import CreateView from "@/views/CreateView.vue";
 import TodoCategory from "@/components/TodoCategory.vue";
+import FilterBar from "@/components/FilterBar.vue";
 
 export default {
   components: {
@@ -28,7 +32,8 @@ export default {
     Sidebar,
     EditView,
     CreateView,
-    TodoCategory
+    TodoCategory,
+    FilterBar
   },
   data() {
     return {
@@ -36,7 +41,8 @@ export default {
       isCreating: false,
       isCategoryView: false,
       selectedTodo: null,
-      todos: []
+      todos: [],
+      filteredTodos: []
     };
   },
   created() {
@@ -77,14 +83,25 @@ export default {
         this.todos[index] = updatedTodo;
       }
       this.isEditing = false;
+      this.filterTodos('');
     },
     addTodo(newTodo) {
       this.todos.push(newTodo);
       this.isCreating = false;
+      this.filterTodos('');
     },
     loadTodos() {
       const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       this.todos = savedTodos;
+      this.filteredTodos = savedTodos;
+      console.log('Loaded todos:', this.todos);
+    },
+    filterTodos(searchQuery) {
+      console.log('Filtering todos with query:', searchQuery);
+      this.filteredTodos = this.todos.filter(todo =>
+        todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      console.log('Filtered todos:', this.filteredTodos);
     }
   }
 };

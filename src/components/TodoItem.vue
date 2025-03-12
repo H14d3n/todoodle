@@ -22,4 +22,7 @@ export default {
 .todo-title {
   flex-grow: 1;
 }
+h5 {
+  font-weight: 550;
+}
 </style>

@@ -20,7 +20,7 @@
         <textarea v-model="newTodo.description" class="form-control"></textarea>
       </div>
       <button type="submit" class="btn btn-success">Speichern</button>
-      <button type="button" @click="$emit('closeCreate')" class="btn btn-secondary ms-2">Abbrechen</button>
+      <button type="button" @click="$emit('closeCreate')" class="btn btn-danger ms-2">Abbrechen</button>
     </form>
   </div>
 </template>
