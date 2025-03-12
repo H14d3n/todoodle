@@ -1,18 +1,22 @@
 <template>
   <div class="container-fluid mt-0">
-    <h1 class="text-center my-0 mx-0 border border-dark rounded">todoodle ©</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="text-center my-0 mx-0 border border-dark rounded p-2">todoodle ©</h1>
+      <FilterBar @search="filterTodos" />
+    </div>
     <div class="row">
       <div class="col-md-3 mt-3 mx-1 p-0 rounded">
         <Sidebar @createTask="createTask" @openEdit="editTask" @openCategoryView="openCategoryView" />
       </div>
-      <div>
-        <FilterBar @search="filterTodos" />
-      </div>
-      <div class="col-md-12 mt-1">
-        <TodoCategory v-if="isCategoryView" @close="closeCategoryView" />
-        <EditView v-else-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
-        <CreateView v-else-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
-        <TodoList v-else @editTask="editTask" :todos="filteredTodos" />
+      <div class="col-md-9 mt-1">
+        <div class="row">
+          <TodoCategory v-if="isCategoryView" @close="closeCategoryView" />
+          <EditView v-else-if="isEditing" :todo="selectedTodo" @closeEdit="closeEdit" @updateTodo="updateTodo" />
+          <CreateView v-else-if="isCreating" @closeCreate="closeCreate" @createTodo="addTodo" />
+          <div v-else class="row">
+            <TodoList @editTask="editTask" :todos="filteredTodos" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -117,5 +121,27 @@ h1 {
 .container-fluid {
   margin-left: 0px;
   margin-right: 50px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.card {
+  height: 100%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body button {
+  align-self: flex-end;
 }
 </style>

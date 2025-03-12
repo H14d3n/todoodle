@@ -1,8 +1,16 @@
 <template>
   <div v-if="todos.length" class="container-xxl mt-6">
     <div class="row">
-      <div v-for="todo in todos" :key="todo.id" class="col-mb-4 mb-3">
-        <TodoItem :todo="todo" class="todo-item" @edit="editTask(todo)" />
+      <div class="col-md-4 mb-3" v-for="todo in todos" :key="todo.id">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ todo.title }}</h5>
+            <span class="badge badge-secondary">{{ todo.category }}</span>
+            <hr>
+            <p class="card-text">{{ todo.description }}</p>
+            <button class="btn btn-primary" @click="$emit('editTask', todo)">Edit</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -10,18 +18,11 @@
 </template>
 
 <script>
-import TodoItem from "@/components/TodoItem.vue";
-
 export default {
-  components: {
-    TodoItem
-  },
   props: {
-    todos: Array
-  },
-  methods: {
-    editTask(todo) {
-      this.$emit("editTask", todo);
+    todos: {
+      type: Array,
+      required: true
     }
   }
 };
@@ -47,5 +48,39 @@ export default {
 
 .mt-6 {
   margin-top: 4.5rem;
+}
+
+.card {
+  height: 100%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  background-color: #6c757d;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-body button {
+  align-self: flex-end;
 }
 </style>
