@@ -92,6 +92,11 @@ export default {
   color: white;
 }
 
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
 @media (max-width: 576px) {
   .card-title {
     font-size: 1rem;
