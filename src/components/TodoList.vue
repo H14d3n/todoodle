@@ -1,14 +1,14 @@
 <template>
-  <div v-if="todos.length" class="container-xxl mt-6">
+  <div v-if="todos.length" class="container mt-6">
     <div class="row">
-      <div class="col-md-4 mb-3" v-for="todo in todos" :key="todo.id">
-        <div class="card">
-          <div class="card-body">
+      <div class="col-12 col-sm-6 col-md-4 mb-3" v-for="todo in todos" :key="todo.id">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ todo.title }}</h5>
             <span class="badge badge-secondary">{{ todo.category }}</span>
             <hr>
             <p class="card-text">{{ todo.description }}</p>
-            <button class="btn btn-primary" @click="$emit('editTask', todo)">Edit</button>
+            <button class="btn btn-primary mt-auto" @click="$emit('editTask', todo)">Edit</button>
           </div>
         </div>
       </div>
@@ -29,21 +29,15 @@ export default {
 </script>
 
 <style scoped>
-.todo-item {
-  background-color: #98b0da;
-  border-color: #485971;
-  padding: 15px;
-  border-radius: 10px;
-  width: 100%;
-}
-
-.container-xxl {
-  display: flex;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .text-muted {
   margin-top: 100px;
   font-size: large;
+  text-align: center;
 }
 
 .mt-6 {
@@ -51,6 +45,8 @@ export default {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
@@ -58,6 +54,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 }
 
 .card-title {
@@ -78,9 +75,28 @@ export default {
 .card-text {
   font-size: 1rem;
   margin-bottom: 1rem;
+  flex-grow: 1;
 }
 
-.card-body button {
+.btn-primary {
   align-self: flex-end;
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+  }
+
+  .card-text {
+    font-size: 0.875rem;
+  }
+
+  .btn-primary {
+    font-size: 0.875rem;
+  }
 }
 </style>
