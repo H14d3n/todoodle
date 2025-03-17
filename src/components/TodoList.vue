@@ -80,6 +80,7 @@ export default {
 
 .btn-primary {
   align-self: flex-end;
+  margin-top: auto;
 }
 
 @media (max-width: 576px) {

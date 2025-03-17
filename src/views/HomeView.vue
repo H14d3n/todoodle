@@ -5,7 +5,7 @@
       <FilterBar @search="filterTodos" />
     </div>
     <div class="row">
-      <div class="col-md-3 mt-3 mx-1 p-0 rounded">
+      <div class="col-md-2 mt-3 mx-1 p-0 rounded"> 
         <Sidebar @createTask="createTask" @openEdit="editTask" @openCategoryView="openCategoryView" />
       </div>
       <div class="col-md-9 mt-1">

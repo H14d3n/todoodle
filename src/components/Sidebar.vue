@@ -32,6 +32,6 @@ const openCategoryView = () => {
 }
 
 .container {
-  margin: 0 2rem 0 6rem;
+  margin: 0 2rem 0 0rem;
 }
 </style>
