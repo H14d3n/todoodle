@@ -54,6 +54,9 @@
   .category-settings {
     max-width: 400px;
     margin: auto;
+    margin-top: 1.7rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
   }
   </style>
   

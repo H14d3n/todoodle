@@ -8,13 +8,16 @@
             <span class="badge badge-secondary">{{ todo.category }}</span>
             <hr>
             <p class="card-text">{{ todo.description }}</p>
-            <button class="btn btn-primary mt-auto" @click="$emit('editTask', todo)">Edit</button>
+            <div class="mt-auto d-flex justify-content-between">
+              <button class="btn btn-success" @click="$emit('markDone', todo)">✓</button>
+              <button class="btn btn-primary" @click="$emit('editTask', todo)">Edit</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <p v-else class="text-muted">Keine Todos gefunden! Bitte erstelle ein Neues!</p>
+  <p v-else class="text-muted">Keine Todos gefunden!</p>
 </template>
 
 <script>
@@ -81,6 +84,12 @@ export default {
 .btn-primary {
   align-self: flex-end;
   margin-top: auto;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
 }
 
 @media (max-width: 576px) {

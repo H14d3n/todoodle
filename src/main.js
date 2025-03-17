@@ -10,6 +10,10 @@ import router from './router';
 
 const app = createApp(App);
 
+router.afterEach((to) => {
+    document.title = to.meta.title || 'todoodle ©';
+});
+
 app.use(createPinia());
 app.use(router);
 

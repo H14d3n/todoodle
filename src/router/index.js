@@ -5,6 +5,7 @@ import CreateView from '@/views/CreateView.vue';
 
 const routes = [
   { path: '/', name: 'home', component: HomeView }, 
+  { path: '/home', component: HomeView, meta: {title: 'Home'} },
   { path: '/edit/:id', name: 'edit', component: EditView },
   { path: '/create', name: 'create', component: CreateView } 
 ];

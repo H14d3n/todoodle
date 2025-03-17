@@ -106,6 +106,9 @@ export default {
         todo.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       console.log('Filtered todos:', this.filteredTodos);
+    },
+    markDone(todo) {
+      this.todos = this.todos.filter(t => t.id !== todo.id);
     }
   }
 };
