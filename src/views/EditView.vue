@@ -19,7 +19,7 @@
         <label class="form-label">Beschreibung</label>
         <textarea v-model="editedTodo.description" class="form-control"></textarea>
       </div>
-      <button type="submit" class="btn btn-success">Speichern</button>
+      <button type="submit" class="btn btn-success" :disabled="!isValid">Speichern</button>
       <button type="button" @click="$emit('closeEdit')" class="btn btn-danger ms-2">Abbrechen</button>
     </form>
   </div>
@@ -36,11 +36,20 @@ export default {
       categories: []
     };
   },
+  computed: {
+    isValid() {
+      return this.editedTodo.title.trim() !== "" && this.editedTodo.description.trim() !== "";
+    }
+  },
   created() {
     this.loadCategories();
   },
   methods: {
     saveTask() {
+      if (!this.isValid) {
+        alert("Titel und Beschreibung dürfen nicht leer sein!");
+        return;
+      }
       const updatedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       const index = updatedTodos.findIndex(todo => todo.id === this.editedTodo.id);
       if (index !== -1) {
