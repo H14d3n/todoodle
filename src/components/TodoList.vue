@@ -5,11 +5,12 @@
         <div class="card h-100">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ todo.title }}</h5>
-            <span class="badge badge-secondary">{{ todo.category }}</span>
+            <span class="badge bg-secondary">{{ todo.category }}</span>
             <hr>
             <p class="card-text">{{ todo.description }}</p>
             <div class="mt-auto d-flex justify-content-between">
-              <button class="btn btn-success" @click="$emit('markDone', todo)">✓</button>
+              <button v-if="!todo.finished" class="btn btn-success" @click="$emit('markDone', todo)">✓</button>
+              <button v-else class="btn btn-warning" @click="$emit('reopenTask', todo)">⟲</button>
               <button class="btn btn-primary" @click="$emit('editTask', todo)">Edit</button>
             </div>
           </div>
