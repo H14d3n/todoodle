@@ -62,14 +62,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const emit = defineEmits(['search', 'toggleFinished', 'applyFilters']);
 const searchQuery = ref('');
 const showFinished = ref(false);
 const showCompleted = ref(false);
 const selectedCategory = ref('');
-const categories = ref(['Work', 'Personal', 'Urgent']); // Example categories
+const categories = ref([]);
+
+const updateCategories = () => {
+  const storedCategories = localStorage.getItem('categories');
+  if (storedCategories) {
+    categories.value = JSON.parse(storedCategories) || [];
+  } else {
+    categories.value = [];
+  }
+};
+
+watchEffect(() => {
+  updateCategories();
+});
 
 const searchTodo = () => {
   emit('search', searchQuery.value);
@@ -84,7 +97,7 @@ const applyFilters = () => {
     showCompleted: showCompleted.value,
     selectedCategory: selectedCategory.value
   });
-  // Close the modal
+ 
   const modal = document.getElementById('filterModal');
   const bootstrapModal = bootstrap.Modal.getInstance(modal);
   bootstrapModal.hide();
@@ -105,5 +118,15 @@ img {
 
 img:hover {
   transform: scale(1.1);
+}
+
+.modal-body {
+  margin: 0;
+  padding-top: 0rem;
+}
+
+.form-check  {
+  margin: 0;
+  padding: 0; 
 }
 </style>
