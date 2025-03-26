@@ -5,7 +5,8 @@
         <div class="card h-100">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ todo.title }}</h5>
-            <span class="badge bg-secondary">{{ todo.category }}</span>
+            <span class="badge" :style="{ backgroundColor: todo.category.color }">{{ todo.category.name }}</span>
+            <p v-if="todo.dueDate" class="text-muted date"> {{ formatDueDate(todo.dueDate) }}</p>
             <hr>
             <p class="card-text">{{ todo.description }}</p>
             <div class="mt-auto d-flex justify-content-between">
@@ -27,6 +28,12 @@ export default {
     todos: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    formatDueDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString(undefined, options);
     }
   }
 };
@@ -69,7 +76,6 @@ export default {
 
 .badge {
   font-size: 0.75rem;
-  background-color: #6c757d;
   color: white;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
@@ -96,6 +102,11 @@ export default {
 .btn-success:hover {
   background-color: #218838;
   border-color: #1e7e34;
+}
+
+.date {
+  font-size: 0.575rem;
+  margin: 0;
 }
 
 @media (max-width: 576px) {

@@ -7,11 +7,15 @@
         <input v-model="editedTodo.title" type="text" class="form-control">
       </div>
       <div class="mb-3">
+        <label class="form-label">Fälligkeitsdatum</label>
+        <input v-model="editedTodo.dueDate" type="date" class="form-control">
+      </div>
+      <div class="mb-3">
         <label class="form-label">Kategorie</label>
-        <select v-model="editedTodo.category" class="form-control">
+        <select v-model="editedTodo.category.name" class="form-control">
           <option value="">Keine Kategorie</option>
-          <option v-for="category in categories" :key="category" :value="category">
-            {{ category }}
+          <option v-for="category in categories" :key="category.name" :value="category.name">
+            {{ category.name }}
           </option>
         </select>
       </div>
@@ -32,7 +36,7 @@ export default {
   },
   data() {
     return {
-      editedTodo: { ...this.todo },
+      editedTodo: { ...this.todo, category: { ...this.todo.category } },
       categories: []
     };
   },
@@ -49,6 +53,10 @@ export default {
       if (!this.isValid) {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
+      }
+      const category = this.categories.find(cat => cat.name === this.editedTodo.category.name);
+      if (category) {
+        this.editedTodo.category.color = category.color;
       }
       const updatedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       const index = updatedTodos.findIndex(todo => todo.id === this.editedTodo.id);

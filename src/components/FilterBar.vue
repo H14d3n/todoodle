@@ -51,7 +51,9 @@
               <label for="categorySelect">Kategorie</label>
               <select class="form-control" id="categorySelect" v-model="selectedCategory">
                 <option value="">Alle Kategorien</option>
-                <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+                <option v-for="category in categories" :key="category.name" :value="category.name">
+                  {{ category.name }}
+                </option>
               </select>
             </div>
           </div>
@@ -67,7 +69,6 @@ import { ref, watchEffect } from 'vue';
 const emit = defineEmits(['search', 'toggleFinished', 'applyFilters']);
 const searchQuery = ref('');
 const showFinished = ref(false);
-const showCompleted = ref(false);
 const selectedCategory = ref('');
 const categories = ref([]);
 
@@ -94,7 +95,7 @@ const openFilterModal = () => {};
 
 const applyFilters = () => {
   emit('applyFilters', {
-    showCompleted: showCompleted.value,
+    showFinished: showFinished.value,
     selectedCategory: selectedCategory.value
   });
  

@@ -12,10 +12,10 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Kategorie</label>
-        <select v-model="newTodo.category" class="form-control">
+        <select v-model="newTodo.category.name" class="form-control">
           <option value="">Keine Kategorie</option>
-          <option v-for="category in categories" :key="category" :value="category">
-            {{ category }}
+          <option v-for="category in categories" :key="category.name" :value="category.name">
+            {{ category.name }}
           </option>
         </select>
       </div>
@@ -36,7 +36,7 @@ export default {
       newTodo: {
         title: "",
         description: "",
-        category: "",
+        category: { name: "", color: "" },
         dueDate: ""
       },
       categories: []
@@ -55,6 +55,10 @@ export default {
       if (!this.isValid) {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
+      }
+      const category = this.categories.find(cat => cat.name === this.newTodo.category.name);
+      if (category) {
+        this.newTodo.category.color = category.color;
       }
       const newTodo = { ...this.newTodo, id: Date.now() };
       const todos = JSON.parse(localStorage.getItem("todos")) || [];

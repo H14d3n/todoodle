@@ -215,4 +215,9 @@ h1 {
 .card-body button {
   align-self: flex-end;
 }
+
+.row {
+  margin-top: -1.1rem;
+  padding: 0;
+}
 </style>

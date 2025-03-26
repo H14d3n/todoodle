@@ -5,13 +5,17 @@
         <div class="mb-3">
           <input v-model="newCategory" type="text" class="form-control" placeholder="Neue Kategorie">
         </div>
+        <label class="mt-0" for="color">Farbe:</label>
+        <div class="mb-3 color-picker">
+          <input v-model="newCategoryColor" type="color" class="form-control" placeholder="Farbe auswählen">
+        </div>
         <button type="submit" class="btn btn-primary">Hinzufügen</button>
         <button type="submit" @click="$emit('close')" class="btn btn-danger ms-3">Abbrechen</button>
       </form>
       
       <ul class="list-group mt-3">
         <li v-for="(category, index) in categories" :key="index" class="list-group-item d-flex justify-content-between">
-          {{ category }}
+          <span>{{ category.name }}</span>
           <button @click="removeCategory(index)" class="btn btn-danger btn-sm">⨉</button>
         </li>
       </ul>
@@ -23,6 +27,7 @@
     data() {
       return {
         newCategory: "",
+        newCategoryColor: "#ffffff",
         categories: []
       };
     },
@@ -31,10 +36,11 @@
     },
     methods: {
       addCategory() {
-        if (this.newCategory.trim() === "" || this.categories.includes(this.newCategory)) return;
-        this.categories.push(this.newCategory);
+        if (this.newCategory.trim() === "" || this.categories.some(cat => cat.name === this.newCategory)) return;
+        this.categories.push({ name: this.newCategory, color: this.newCategoryColor });
         this.saveCategories();
         this.newCategory = "";
+        this.newCategoryColor = "#ffffff";
       },
       removeCategory(index) {
         this.categories.splice(index, 1);
@@ -58,5 +64,10 @@
     padding: 1rem;
     border: 1px solid #ddd;
   }
+
+  .color-picker {
+    display: flex;
+    width: 20%;
+    margin: 0.2rem 0 0.2rem 0;
+  }
   </style>
-  

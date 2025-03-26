@@ -3,7 +3,7 @@
     <div class="todo-title">
       <h5>{{ todo.title }}</h5>
       <p v-if="todo.category" class="badge bg-secondary">{{ todo.category }}</p>
-      <p v-if="todo.dueDate" class="text-muted"><strong>Fälligkeitsdatum:</strong> {{ todo.dueDate }}</p>
+      <p v-if="todo.dueDate" class="text-muted"><strong>Fälligkeitsdatum:</strong> {{ formatDueDate(todo.dueDate) }}</p>
       <hr>
       <p>{{ todo.description }}</p>
       <button @click="$emit('edit', todo)" class="btn btn-primary btn-sm">✏️</button>
@@ -15,6 +15,12 @@
 export default {
   props: {
     todo: Object
+  },
+  methods: {
+    formatDueDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString(undefined, options);
+    }
   }
 };
 </script>
