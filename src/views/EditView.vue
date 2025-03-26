@@ -48,15 +48,19 @@ export default {
   created() {
     this.loadCategories();
   },
+  watch: {
+    'editedTodo.category.name': function(newVal) {
+      const category = this.categories.find(cat => cat.name === newVal);
+      if (category) {
+        this.editedTodo.category.color = category.color;
+      }
+    }
+  },
   methods: {
     saveTask() {
       if (!this.isValid) {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
-      }
-      const category = this.categories.find(cat => cat.name === this.editedTodo.category.name);
-      if (category) {
-        this.editedTodo.category.color = category.color;
       }
       const updatedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       const index = updatedTodos.findIndex(todo => todo.id === this.editedTodo.id);

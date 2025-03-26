@@ -17,7 +17,6 @@
       data-bs-target="#filterModal"
     />
     
-
     <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -43,8 +42,8 @@
           </div>
           <div class="modal-body">
             <div class="form-check mt-3">
-              <button @click="$emit('toggleFinished')" class="btn btn-secondary ms-2">
-              {{ showFinished ? 'Offene Todos anzeigen' : 'Erledigte anzeigen' }}
+              <button @click="toggleFinished" class="btn btn-secondary ms-2">
+                {{ showFinished ? 'Offene Todos anzeigen' : 'Erledigte anzeigen' }}
               </button>
             </div>
             <div class="form-group mt-3">
@@ -64,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 const emit = defineEmits(['search', 'toggleFinished', 'applyFilters']);
 const searchQuery = ref('');
@@ -81,8 +80,12 @@ const updateCategories = () => {
   }
 };
 
-watchEffect(() => {
+onMounted(() => {
   updateCategories();
+});
+
+watch([showFinished, selectedCategory], () => {
+  applyFilters();
 });
 
 const searchTodo = () => {
@@ -93,12 +96,17 @@ const openSearchModal = () => {};
 
 const openFilterModal = () => {};
 
+const toggleFinished = () => {
+  showFinished.value = !showFinished.value;
+  emit('toggleFinished', showFinished.value);
+};
+
 const applyFilters = () => {
   emit('applyFilters', {
     showFinished: showFinished.value,
     selectedCategory: selectedCategory.value
   });
- 
+  
   const modal = document.getElementById('filterModal');
   const bootstrapModal = bootstrap.Modal.getInstance(modal);
   bootstrapModal.hide();

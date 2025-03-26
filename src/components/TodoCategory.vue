@@ -10,7 +10,7 @@
           <input v-model="newCategoryColor" type="color" class="form-control" placeholder="Farbe auswählen">
         </div>
         <button type="submit" class="btn btn-primary">Hinzufügen</button>
-        <button type="submit" @click="$emit('close')" class="btn btn-danger ms-3">Abbrechen</button>
+        <button type="button" @click="$emit('close')" class="btn btn-danger ms-3">Abbrechen</button>
       </form>
       
       <ul class="list-group mt-3">
@@ -34,20 +34,26 @@
     created() {
       this.loadCategories();
     },
+    watch: {
+      categories: {
+        handler(newCategories) {
+          this.saveCategories(newCategories);
+        },
+        deep: true
+      }
+    },
     methods: {
       addCategory() {
         if (this.newCategory.trim() === "" || this.categories.some(cat => cat.name === this.newCategory)) return;
         this.categories.push({ name: this.newCategory, color: this.newCategoryColor });
-        this.saveCategories();
         this.newCategory = "";
         this.newCategoryColor = "#ffffff";
       },
       removeCategory(index) {
         this.categories.splice(index, 1);
-        this.saveCategories();
       },
-      saveCategories() {
-        localStorage.setItem("categories", JSON.stringify(this.categories));
+      saveCategories(categories) {
+        localStorage.setItem("categories", JSON.stringify(categories));
       },
       loadCategories() {
         this.categories = JSON.parse(localStorage.getItem("categories")) || [];

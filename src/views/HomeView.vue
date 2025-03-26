@@ -108,6 +108,17 @@ export default {
       return [...new Set([...this.todos, ...this.finishedTodos].map(todo => todo.category))];
     }
   },
+  watch: {
+    selectedCategory() {
+      this.filteredTodos;
+    },
+    showFinished() {
+      this.filteredTodos;
+    },
+    searchQuery() {
+      this.filteredTodos;
+    }
+  },
   methods: {
     editTask(todo) {
       this.selectedTodo = { ...todo };

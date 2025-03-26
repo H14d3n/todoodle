@@ -50,15 +50,19 @@ export default {
   created() {
     this.loadCategories();
   },
+  watch: {
+    'newTodo.category.name': function(newVal) {
+      const category = this.categories.find(cat => cat.name === newVal);
+      if (category) {
+        this.newTodo.category.color = category.color;
+      }
+    }
+  },
   methods: {
     saveTask() {
       if (!this.isValid) {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
-      }
-      const category = this.categories.find(cat => cat.name === this.newTodo.category.name);
-      if (category) {
-        this.newTodo.category.color = category.color;
       }
       const newTodo = { ...this.newTodo, id: Date.now() };
       const todos = JSON.parse(localStorage.getItem("todos")) || [];
