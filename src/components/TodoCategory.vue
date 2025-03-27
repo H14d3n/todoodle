@@ -28,11 +28,13 @@
       return {
         newCategory: "",
         newCategoryColor: "#ffffff",
-        categories: []
+        categories: [],
+        todos: []
       };
     },
     created() {
       this.loadCategories();
+      this.loadTodos();
     },
     watch: {
       categories: {
@@ -50,13 +52,28 @@
         this.newCategoryColor = "#ffffff";
       },
       removeCategory(index) {
+        const categoryName = this.categories[index].name;
+
+        const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+        const isCategoryInUse = todos.some(todo => todo.category && todo.category.name === categoryName);
+
+        if (isCategoryInUse) {
+          alert("Kategorie kann nicht gelöscht werden, da sie mit offenen Aufgaben verknüpft ist.");
+          return;
+        }
+
         this.categories.splice(index, 1);
+        this.saveCategories(this.categories);
       },
       saveCategories(categories) {
         localStorage.setItem("categories", JSON.stringify(categories));
       },
       loadCategories() {
         this.categories = JSON.parse(localStorage.getItem("categories")) || [];
+      },
+      loadTodos() {
+        this.todos = JSON.parse(localStorage.getItem("todos")) || [];
       }
     }
   };

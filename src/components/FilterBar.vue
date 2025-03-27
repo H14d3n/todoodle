@@ -17,7 +17,6 @@
       data-bs-target="#filterModal"
     />
     
-    <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -32,7 +31,6 @@
       </div>
     </div>
 
-    <!-- Filter Modal -->
     <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

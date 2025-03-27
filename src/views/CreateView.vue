@@ -64,7 +64,11 @@ export default {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
       }
-      const newTodo = { ...this.newTodo, id: Date.now() };
+      if (!this.newTodo.category.name) {
+        alert("Bitte eine Kategorie auswählen!");
+        return;
+      }
+      const newTodo = { ...this.newTodo, id: Date.now(), finished: false };
       const todos = JSON.parse(localStorage.getItem("todos")) || [];
       todos.push(newTodo);
       localStorage.setItem("todos", JSON.stringify(todos));

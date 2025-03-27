@@ -93,15 +93,15 @@ export default {
   computed: {
     filteredTodos() {
       let allTasks = this.showFinished ? this.finishedTodos : this.todos;
-      
+
       if (this.selectedCategory) {
-        allTasks = allTasks.filter(todo => todo.category === this.selectedCategory);
+        allTasks = allTasks.filter(todo => todo.category.name === this.selectedCategory);
       }
-      
+
       if (this.searchQuery) {
         allTasks = allTasks.filter(todo => todo.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
       }
-      
+
       return allTasks;
     },
     categories() {

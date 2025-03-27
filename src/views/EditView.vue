@@ -62,6 +62,10 @@ export default {
         alert("Titel und Beschreibung dürfen nicht leer sein!");
         return;
       }
+      if (!this.editedTodo.category.name) {
+        alert("Bitte eine Kategorie auswählen!");
+        return;
+      }
       const updatedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       const index = updatedTodos.findIndex(todo => todo.id === this.editedTodo.id);
       if (index !== -1) {
