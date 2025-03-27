@@ -41,14 +41,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="form-check mt-3">
-              <button @click="toggleFinished" class="btn btn-secondary ms-2">
+            <button @click="toggleFinished" class="btn btn-secondary w-100 mb-3">
                 {{ showFinished ? 'Offene Todos anzeigen' : 'Erledigte anzeigen' }}
-              </button>
-            </div>
-            <div class="form-group mt-3">
+            </button>
+            <div class="form-group">
               <label for="categorySelect">Kategorie</label>
-              <select class="form-control" id="categorySelect" v-model="selectedCategory">
+              <select class="form-control" id="categorySelect" v-model="selectedCategory" @change="applyFilters">
                 <option value="">Alle Kategorien</option>
                 <option v-for="category in categories" :key="category.name" :value="category.name">
                   {{ category.name }}
@@ -64,6 +62,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const emit = defineEmits(['search', 'toggleFinished', 'applyFilters']);
 const searchQuery = ref('');
@@ -73,11 +72,7 @@ const categories = ref([]);
 
 const updateCategories = () => {
   const storedCategories = localStorage.getItem('categories');
-  if (storedCategories) {
-    categories.value = JSON.parse(storedCategories) || [];
-  } else {
-    categories.value = [];
-  }
+  categories.value = storedCategories ? JSON.parse(storedCategories) : [];
 };
 
 onMounted(() => {
@@ -92,10 +87,6 @@ const searchTodo = () => {
   emit('search', searchQuery.value);
 };
 
-const openSearchModal = () => {};
-
-const openFilterModal = () => {};
-
 const toggleFinished = () => {
   showFinished.value = !showFinished.value;
   emit('toggleFinished', showFinished.value);
@@ -104,13 +95,21 @@ const toggleFinished = () => {
 const applyFilters = () => {
   emit('applyFilters', {
     showFinished: showFinished.value,
-    selectedCategory: selectedCategory.value
+    selectedCategory: selectedCategory.value,
   });
-  
+
   const modal = document.getElementById('filterModal');
   const bootstrapModal = bootstrap.Modal.getInstance(modal);
-  bootstrapModal.hide();
+  if (bootstrapModal) {
+    bootstrapModal.hide();
+  }
 };
+
+window.addEventListener('storage', (event) => {
+  if (event.key === 'categories') {
+    updateCategories();
+  }
+});
 </script>
 
 <style scoped>
@@ -127,15 +126,5 @@ img {
 
 img:hover {
   transform: scale(1.1);
-}
-
-.modal-body {
-  margin: 0;
-  padding-top: 0rem;
-}
-
-.form-check  {
-  margin: 0;
-  padding: 0; 
 }
 </style>
